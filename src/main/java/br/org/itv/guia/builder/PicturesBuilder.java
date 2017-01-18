@@ -50,6 +50,7 @@ public class PicturesBuilder extends SpecieBuilder {
 			bytes = Files.readAllBytes(file.toPath());
 			Picture picture = new Picture();
 			picture.setEncondedImage(Base64.getEncoder().encodeToString(bytes));
+			picture.setPictureName(file.getName());
 			return picture;
 		} catch (IOException e) {
 			throw new RuntimeException(e);

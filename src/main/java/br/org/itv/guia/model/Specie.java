@@ -3,24 +3,53 @@ package br.org.itv.guia.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
+@Entity
 public class Specie {
-
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
-	private String desc;
+	
+	@Column(name="description", columnDefinition="TEXT") 
+	private String description;
+	
+	@Column(columnDefinition="TEXT")
 	private String flowering;
+	
+	@Column(columnDefinition="TEXT")
 	private String habitat;
+	
 	@JsonProperty("popular_name")
-	private String popular_name;
-	@JsonProperty("scientific_name")
-	private String scientific_name;
+	private String popularName;
+	
+	@JsonProperty("scientific_name") 
+	private String scientificName;
+	
 	@JsonProperty("url_reflora")
-	private String url_reflora;
+	private String urlReflora;
+	
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true) 
 	private List<Picture> pictures;
-	private String sample;
+	
+	@OneToOne(orphanRemoval=true, cascade=CascadeType.ALL, optional=true)
+	private Picture sample;
+	
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true) 
 	private List<Coordinate> coordinates;
+	
+	private Integer objectVersion;
 	
 	public Specie(){
 		this.pictures = new ArrayList<>();
@@ -29,12 +58,6 @@ public class Specie {
 	
 	public Long getId() {
 		return id;
-	}
-	public String getDesc() {
-		return desc;
-	}
-	public void setDesc(String desc) {
-		this.desc = desc;
 	}
 	public String getFlowering() {
 		return flowering;
@@ -49,42 +72,56 @@ public class Specie {
 		this.habitat = habitat;
 	}
 	public String getPopularName() {
-		return popular_name;
+		return popularName;
 	}
-	public void setPopularName(String popular_name) {
-		this.popular_name = popular_name;
+	public void setPopularName(String popularName) {
+		this.popularName = popularName;
 	}
 	public String getScientificName() {
-		return scientific_name;
+		return scientificName;
 	}
-	public void setScientificName(String scientific_name) {
-		this.scientific_name = scientific_name;
+	public void setScientificName(String scientificName) {
+		this.scientificName = scientificName;
 	}
 	public String getUrlReflora() {
-		return url_reflora;
+		return urlReflora;
 	}
-	public void setUrlReflora(String url_reflora) {
-		this.url_reflora = url_reflora;
+	public void setUrlReflora(String urlReflora) {
+		this.urlReflora = urlReflora;
 	}
 	public List<Picture> getPictures() {
 		return pictures;
-	}
-
-	public String getSample() {
-		return sample;
-	}
-
-	public void setSample(String sample) {
-		this.sample = sample;
 	}
 
 	public List<Coordinate> getCoordinates() {
 		return coordinates;
 	}
 
-	public void setCoordinates(List<Coordinate> coordinates) {
-		this.coordinates = coordinates;
+	public Picture getSample() {
+		return sample;
 	}
-	
-	
+
+	public void setSample(Picture sample) {
+		this.sample = sample;
+	}
+
+	public void setPictures(List<Picture> pictures) {
+		this.pictures = pictures;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Integer getObjectVersion() {
+		return objectVersion;
+	}
+
+	public void setObjectVersion(Integer objectVersion) {
+		this.objectVersion = objectVersion;
+	}
 }

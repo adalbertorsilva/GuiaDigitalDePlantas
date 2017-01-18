@@ -6,6 +6,9 @@ import java.nio.file.Files;
 import java.util.Base64;
 import java.util.stream.Stream;
 
+import br.org.itv.guia.model.Picture;
+import br.org.itv.guia.utils.Utils;
+
 public class SampleBuilder extends SpecieBuilder {
 
 	
@@ -15,8 +18,22 @@ public class SampleBuilder extends SpecieBuilder {
 	
 	@Override
 	public Object getValue() {
-		File picturesDirecotry = file.getParentFile();
-		return convertSampleFileToString64(getSampleImageFile(picturesDirecotry));
+		return createPicture();
+	}
+	
+	private Picture createPicture(){
+		
+		File sampleImageFile = getSampleImageFile(file.getParentFile());
+		
+		if(Utils.isNull(sampleImageFile)){
+			return null;
+		}
+		
+		Picture picture = new Picture();
+		picture.setPictureName(sampleImageFile.getName());
+		picture.setEncondedImage(convertSampleFileToString64(sampleImageFile));
+		
+		return picture;
 	}
 	
 	private File getSampleImageFile(File file){

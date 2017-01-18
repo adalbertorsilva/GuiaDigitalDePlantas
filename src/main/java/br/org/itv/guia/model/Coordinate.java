@@ -1,10 +1,21 @@
 package br.org.itv.guia.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Coordinate {
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 	private Float latitude;
 	private Float longitude;
 	private String place;
+	
+	public Coordinate() {}
 	
 	public Coordinate(String coordinatesValue, String place){
 		setLatitudeAndLongitude(coordinatesValue);

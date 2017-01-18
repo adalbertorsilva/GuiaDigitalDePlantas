@@ -59,8 +59,8 @@ public class TestFileManager {
 	public void deve_criar_um_objeto_specie_com_descricao_preenchida_a_partir_de_um_documento_de_descricao(){
 		FileManager manager = new FileManager();
 		manager.setFile(new File("/Users/b0014/Documents/Guia/Amanthaceae/Gomphrena arborescens L.f/Descrição_Gomphrena_arborescens.docx"));
-		assertNotNull(manager.createSpecie().getDesc());
-		assertFalse(manager.createSpecie().getDesc().isEmpty());
+		assertNotNull(manager.createSpecie().getDescription());
+		assertFalse(manager.createSpecie().getDescription().isEmpty());
 	}
 	
 	@Test

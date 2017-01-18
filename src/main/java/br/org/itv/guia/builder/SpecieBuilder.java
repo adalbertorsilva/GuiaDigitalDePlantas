@@ -18,7 +18,7 @@ public abstract class SpecieBuilder {
 	protected File file;
 	
 	public static SpecieBuilder getBuilder(File file, Field field){
-		switch (SpecieFieldsEnum.valueOf(field.getName().toUpperCase())) {
+		switch (SpecieFieldsEnum.getEnumValueByString(field.getName())) {
 		case SCIENTIFIC_NAME:
 			return new ScientificNameBuilder(file);
 		case DESC:
@@ -35,6 +35,8 @@ public abstract class SpecieBuilder {
 			return new SampleBuilder(file);
 		case COORDINATES:
 			return new CoordinatesBuilder(file);
+		case OBJECT_VERSION:
+			return new VersionBuilder();
 		default:
 			return new NullBuilder(field);
 		}

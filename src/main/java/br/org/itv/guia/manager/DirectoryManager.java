@@ -14,17 +14,25 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.org.itv.guia.constants.PropertiesEnum;
 import br.org.itv.guia.model.Specie;
+import br.org.itv.guia.repository.SpecieRepository;
 
+@Service
 public class DirectoryManager extends GeneralManager{
 
 	private File rooDirectory;
 	private List<File> speciesDirectories;
 	private FileManager fileManager;
 	private List<Specie> jsonSpecies; 
+	@Autowired
+	private SpecieRepository specieRepository;
 
 	public DirectoryManager() {
 		loadProperties();
@@ -79,7 +87,11 @@ public class DirectoryManager extends GeneralManager{
 	public void createJsonObjects(){
 		speciesDirectories.stream().forEach((file) -> {
 										fileManager.setFile(getDescriptionFile(Arrays.asList(file.listFiles())));
-										jsonSpecies.add(fileManager.createSpecie());
+										Specie specie = fileManager.createSpecie();
+										specie.setObjectVersion(1);
+										jsonSpecies.add(specie);
+										specieRepository.save(specie);
+										
 		});
 		
 	}
@@ -123,5 +135,9 @@ public class DirectoryManager extends GeneralManager{
 		fileFullPath.append(properties.getProperty(PropertiesEnum.DESTINATION_PATH.getKey()))
 					.append(properties.getProperty(PropertiesEnum.FILE_NAME.getKey()));
 		return fileFullPath.toString();
+	}
+	
+	public SpecieRepository getSpecieReposiory(){
+		return this.specieRepository;
 	}
 }

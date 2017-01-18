@@ -1,0 +1,92 @@
+	
+<div class="container">	
+	
+	<form name="specieForm">
+	
+		<input class="form-control" type="text" ng-model="specie.scientific_name" name="Nome Científico" placeholder="Nome Científico" ng-required="true"/> <br>
+		
+		<input class="form-control" type="text" ng-model="specie.popular_name" name="Nome Popular" placeholder="Nome Popular" ng-required="false"/> <br>
+		
+		<textarea rows="6" cols="120" name="Descrição" placeholder="Descrição da espécie" ng-model="specie.description" ng-required="true"></textarea> <br>
+		
+		<textarea rows="6" cols="120" name="Habitat" placeholder="Habitat da espécie" ng-model="specie.habitat" ng-required="true"></textarea> <br>
+		
+		<textarea rows="2" cols="120" name="Florificação" placeholder="Florificação da espécie" ng-model="specie.flowering" ng-required="true"></textarea> <br>
+		
+		<input class="form-control" type="text" ng-model="specie.url_reflora" name="URL do Reflora" placeholder="URL do Reflora" ng-required="false"></input> <br>
+		
+		<fieldset>
+		<legend> Coordenadas </legend>
+		<input class="form-control" type="number" ng-model="latitude" name="Latitude" placeholder="Latitude" ng-required="false"/> <br>
+		<input class="form-control" type="number" ng-model="longitude" name="Longitude" placeholder="Longitude" ng-required="false"/> <br>
+		<input class="form-control" type="text" ng-model="place" name="Local" placeholder="Local" ng-required="false"/> <br>
+		
+		<input type="button" name="Adicionar Coordenadas" value="Adicionar Coordenadas" ng-click="addCoordinate()"></input>
+		
+		<table class="table" ng-show="specie.coordinates.length > 0">
+
+			<thead>
+				<tr>
+					<th>Coordenadas de Ocorrência</th>
+				</tr>
+				
+				<tr>
+					<th></th>
+					<th>Latitude</th>
+					<th>Longitude</th>
+					<th>Local</th>
+				</tr>
+			</thead>
+
+			<tr ng-repeat="coordinate in specie.coordinates">
+				
+				<td><input type="button" name="Remover Coordenadas" value="Remover Coordenadas" ng-click="removeCoordinate(coordinate)"></input></td>
+				<td>{{coordinate.latitude}}</td>
+				<td>{{coordinate.longitude}}</td>
+				<td>{{coordinate.place}}</td>
+
+			</tr>
+
+		</table>
+		
+		</fieldset>
+		
+		<br>
+		
+		<input class="form-control" type="file" ng-model="demo_image_file" name="demoImage" base-sixty-four-input required accept="image/*" placeholder="Imagem de Demonstração"> <br>
+		
+		<fieldset>
+			<legend>Imagens de Exemplo</legend>
+			
+			<input class="form-control" type="file" ng-model="image_file" name="image" base-sixty-four-input required accept="image/*"> <br>
+			<input type="button" name="Adicionar Imagem" value="Adicionar Imagem" ng-click="addImage()" ng-model="imageFile"></input>
+			
+			<table class="table" ng-show="specie.pictures.length > 0">
+
+			<thead>
+				<tr>
+					<th></th>
+					<th>Nome do Arquivo</th>
+				</tr>
+			</thead>
+
+			<tr ng-repeat="picture in specie.pictures">
+				
+				<td><input type="button" name="Remover Imagem" value="Remover Imagem" ng-click="removeCoordinate(coordinate)"></input></td>
+				<td>{{picture.picture_name}}</td>
+				
+
+			</tr>
+
+		</table>
+		
+		</fieldset>
+	
+	</form> <br>
+	
+	<td><input type="button" name="Salvar" value="Salvar" ng-click="save()"></input></td>
+	
+</div>	
+	
+	
+
