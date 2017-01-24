@@ -31,12 +31,20 @@ public class SpecieService {
 		
 		validateFields(requestSpecie);
 		validateScientificNameUniquiness(requestSpecie);
-		requestSpecie.setObjectVersion(specieRepository.findLastVersion() + 1);
+		requestSpecie.setObjectVersion(specieRepository.findDataBaseLastVersion() + 1);
 		return specieRepository.save(requestSpecie);
 	}
 	
 	public Specie findSpecieById(Long id) {
 		return specieRepository.findOne(id);
+	}
+	
+	public Integer findDataBaseLastVersion(){
+		return specieRepository.findDataBaseLastVersion();
+	}
+	
+	public List<Specie> findNewSpecies(Integer id){
+		return specieRepository.findNewSpecies(id);
 	}
 	
 	private void validateFields(Specie requestSpecie) throws MissingFieldException, IllegalArgumentException, IllegalAccessException{
@@ -65,7 +73,7 @@ public class SpecieService {
 	}
 	
 	private void validateScientificNameUniquiness(Specie requestSpecie) throws DuplicatedScientificNameException {
-		if (!Utils.isNull(specieRepository.findByScientificName(requestSpecie.getScientificName()))){
+		if ( Utils.isNull(requestSpecie.getId()) && !Utils.isNull(specieRepository.findByScientificName(requestSpecie.getScientificName()))){
 			throw new DuplicatedScientificNameException();
 		}
 		

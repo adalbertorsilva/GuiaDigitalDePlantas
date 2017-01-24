@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,8 +15,9 @@ import br.org.itv.guia.controller.vo.SpecieVO;
 import br.org.itv.guia.controller.vo.SpeciesResponse;
 import br.org.itv.guia.service.SpecieService;
 
+@CrossOrigin(origins = {"http://localhost:8080", "http://e0618828.ngrok.io","http://localhost:8080/guia", "http://e0618828.ngrok.io/guia" })
 @RestController
-@RequestMapping("/guia")
+@RequestMapping("guia")
 public class IndexController {
 
 	@Autowired

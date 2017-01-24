@@ -3,6 +3,7 @@ package br.org.itv.guia.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import br.org.itv.guia.exception.MissingFieldException;
 import br.org.itv.guia.model.Specie;
 import br.org.itv.guia.service.SpecieService;
 
+@CrossOrigin(origins = {"http://localhost:8080", "http://e0618828.ngrok.io"})
 @RestController
 @RequestMapping("/specie")
 public class SpecieController {
