@@ -5,58 +5,58 @@ angular.module("guia").controller('indexController',function($scope, indexAPI) {
 			$scope.currentPage = 1;
 			$scope.numPerPage = 10;
 
-			var getSpecies = function() {
-				indexAPI.getSpecies().then(function(response) {
+			const getSpecies = () => {
+				indexAPI.getSpecies().then((response) => {
 					$scope.species = response.data.species.sort(compare);
 					$scope.numPages = Math.ceil($scope.species.length/ $scope.numPerPage);
 					filterSpecies();
 				});
 			}
 
-			function compare(a, b) {
+			const compare = (a, b) => {
 				if (a.scientific_name < b.scientific_name)
 					return -1;
 				if (a.scientific_name > b.scientific_name)
 					return 1;
 				return 0;
 			}
-			;
+			
 
-			var filterSpecies = function(closure) {
+			const filterSpecies = (closure) => {
 				var begin = (($scope.currentPage - 1) * $scope.numPerPage);
 				var end = begin + $scope.numPerPage;
 
 				$scope.filteredSpecies = $scope.species.slice(begin, end);
 			};
 
-			$scope.filterSpecies = function() {
+			$scope.filterSpecies = () => {
 				
-				if ($scope.searchCriteria === "") {
+				if ($scope.searchCriteria === '') {
 					filterSpecies();
 				} else {
-					$scope.filteredSpecies = $scope.species.filter(function(specie) {
+					$scope.filteredSpecies = $scope.species.filter( (specie) => {
 													return specie.scientific_name.toLowerCase().includes($scope.searchCriteria.toLowerCase());
 												});
 				}
 
 			}
 
-			$scope.firstPage = function() {
+			$scope.firstPage = () => {
 				$scope.currentPage = 1;
 				filterSpecies();
 			}
 
-			$scope.pageFoward = function() {
+			$scope.pageFoward = () => {
 				$scope.currentPage = $scope.currentPage + 1;
 				filterSpecies();
 			}
 
-			$scope.pageBackward = function() {
+			$scope.pageBackward = () => {
 				$scope.currentPage = $scope.currentPage - 1;
 				filterSpecies();
 			}
 
-			$scope.lastPage = function() {
+			$scope.lastPage = () => {
 				$scope.currentPage = $scope.numPages;
 				filterSpecies();
 			}

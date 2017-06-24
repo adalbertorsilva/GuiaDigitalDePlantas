@@ -17,7 +17,6 @@ angular.module("guia").config(function($routeProvider, $locationProvider){
 	
 	$routeProvider.otherwise({redirectTo: "/"});
 	
-	
 	$locationProvider.html5Mode({
 	      enabled: true,
 	      requireBase: false
